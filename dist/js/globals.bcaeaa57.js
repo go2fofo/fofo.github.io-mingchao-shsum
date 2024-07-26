@@ -1,0 +1,1 @@
+import{d as a}from"./pinia.99fca73b.js";const g={info:"pinia 可以使用",language:null},n=a("globals",{persist:!0,state:()=>g,getters:{getInfo:a=>a.info,getLanguage:a=>a.language},actions:{setInfo(a){this.info=a},setLanguage(a){this.language=a}}});export{n as g};
