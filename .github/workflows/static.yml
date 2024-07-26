@@ -21,23 +21,20 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-jobs:
   # 单一部署任务，因为我们只是部署
+jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # 上传 'dist' 目录中的内容
-          path: 'dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build project
+      run: npm install && npm run build
+
+    - name: Deploy to Gitee Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.GITEE_TOKEN }}
+        external_repository: your-gitee-username/your-repo-name
+        publish_dir: ./dist
